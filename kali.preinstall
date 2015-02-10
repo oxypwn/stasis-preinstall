@@ -1,0 +1,12 @@
+#!ipxe
+dhcp
+echo Starting Kali x64 installer for ${hostname}
+set base-url http://repo.kali.org/kali/dists/kali/main/installer-amd64/current/images/netboot/debian-installer/amd64
+kernel ${base-url}/linux
+initrd ${base-url}/initrd.gz
+imgargs linux vga=791 auto=true debian-installer=en_US auto locale=en_US kbd-chooser/method=us hostname={{.Name}} debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false {{ if and .Install .Mirror  }}url=http://{{.Mirror}}/v1/{{.Macaddress}}/install{{end}}
+boot || 
+# If everything failed, give the user some options
+echo Boot from ${base-url} failed
+prompt --key 0x197e --timeout 2000 Press F12 to investigate || exit
+shell
