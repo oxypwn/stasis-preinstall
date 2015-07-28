@@ -1,7 +1,7 @@
 #!ipxe
 dhcp
 echo Starting Ubuntu x64 installer for ${hostname}
-set base-url http://archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64
+set base-url http://se.archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64
 kernel ${base-url}/linux
 initrd ${base-url}/initrd.gz
 imgargs linux auto=true debian-installer=en_US auto locale=en_US kbd-chooser/method=us hostname={{.Name}} debconf/frontend=noninteractive keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false {{ if and .Install .Mirror  }}url=http://{{.Mirror}}/v1/{{.Macaddress}}/install{{end}}
